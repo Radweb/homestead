@@ -5,7 +5,7 @@ class Homestead
     config.vm.hostname = "homestead"
 
     # Configure A Private Network IP
-    config.vm.network :private_network, ip: "192.168.33.10"
+    config.vm.network :private_network, ip: "192.168.33.22"
 
     # Configure A Few VirtualBox Settings
     config.vm.provider "virtualbox" do |vb|
@@ -51,5 +51,16 @@ class Homestead
           s.args = [site["map"], site["to"]]
       end
     end
+
+    # Configure All Of The Server Environment Variables
+    if settings.has_key?("variables")
+      settings["variables"].each do |var|
+        config.vm.provision "shell" do |s|
+            s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/php5/fpm/php-fpm.conf && service php5-fpm restart"
+            s.args = [var["key"], var["value"]]
+        end
+      end
+    end
+    
   end
 end
