@@ -1,13 +1,30 @@
 ---
+
+ip: "192.168.33.22"
+memory: 2048
+cpus: 1
+
 authorize: /Users/me/.ssh/id_rsa.pub
 
 keys:
     - /Users/me/.ssh/id_rsa
 
 folders:
-    - map: /Users/me/Code
-      to: /home/vagrant/Code
+    - map: /Users/me/Sites/work/ib
+      to: /home/vagrant/Code/ib
+    - map: /Users/me/Sites/work/ib2
+      to: /home/vagrant/Code/ib2
+    - map: /Users/me/Sites/work/ni
+      to: /home/vagrant/Code/ni
 
 sites:
-    - map: homestead.app
-      to: /home/vagrant/Code/Laravel/public
+    - map: ib.dev
+      to: /home/vagrant/Code/ib/public
+    - map: ib2.dev
+      to: /home/vagrant/Code/ib2/public
+    - map: ni.dev
+      to: /home/vagrant/Code/ni/public
+
+variables:
+    - key: APP_ENV
+      value: homestead
